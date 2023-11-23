@@ -5,7 +5,6 @@ import { InMemoryDataService } from './app/core/service/in-memory-data.service';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { FormsModule } from '@angular/forms';
 import { withInterceptorsFromDi, provideHttpClient } from '@angular/common/http';
-import { AppRoutingModule } from './app/app-routing.module';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import {PreloadAllModules, provideRouter, RouterModule, Routes, withPreloading} from "@angular/router";
 

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
-const routes: Routes = [
+/*const routes: Routes = [
   { path: 'heroes', loadComponent: () => import('./features/heroes/list-hero/list-hero.component').then(m => m.ListHeroComponent) },
   { path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
   { path: 'detail/:id', loadComponent: () => import('./features/heroes/view-hero/view-hero.component').then(m => m.ViewHeroComponent)},
@@ -13,5 +13,5 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
-})
+})*/
 export class AppRoutingModule { }

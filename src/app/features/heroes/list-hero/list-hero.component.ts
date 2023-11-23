@@ -1,11 +1,28 @@
 import {Component, OnInit} from '@angular/core';
 import {Hero} from '../../../core/model/hero';
 import {HeroService} from '../../../core/service/hero.service';
+import { RouterLink } from '@angular/router';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'list-heroes',
-  templateUrl: './list-hero.component.html',
-  styleUrls: ['./list-hero.component.scss']
+  standalone: true,
+  imports: [NgFor, RouterLink] ,
+  template:`
+    <ul class="heroes">
+      <li *ngFor="let hero of heroes">
+        <a class="hero-cell" routerLink="/detail/{{ hero.id }}">
+          <span class="badge">{{ hero.id }}</span>
+          <span class="name">{{ hero.name }}</span>
+        </a>
+        <button type="button" class="delete" (click)="deleteHero(hero)">x</button>
+      </li>
+    </ul>
+    <div>
+      <button type="button" routerLink="/newHero">Create Hero</button>
+    </div>
+  `,
+  styleUrls: ['./list-hero.component.scss'],
 })
 export class ListHeroComponent implements OnInit {
   heroes: Hero[] = [];

@@ -3,11 +3,20 @@ import {Location} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
 import {HeroService} from "../../../core/service/hero.service";
 import {Hero} from "../../../core/model/hero";
+import { HeroCardComponent } from '../../../shared/components/hero-card/hero-card.component';
 
 @Component({
   selector: 'view-hero',
-  templateUrl: './view-hero.component.html',
-  styleUrls: ['./view-hero.component.scss']
+  standalone: true,
+  imports: [HeroCardComponent],
+  template:`
+    <div>
+      <hero-card [hero]="hero"></hero-card>
+      <button type="button" (click)="save()">Save</button>
+      <button type="button" (click)="goBack()">Go Back</button>
+    </div>
+  `,
+  styleUrls: ['./view-hero.component.scss'],
 })
 export class ViewHeroComponent implements OnInit {
 

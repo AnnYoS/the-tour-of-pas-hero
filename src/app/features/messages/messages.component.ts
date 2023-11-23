@@ -5,6 +5,7 @@ import {CommonModule} from "@angular/common";
 @Component({
   selector: 'app-messages',
   standalone: true,
+  imports: [CommonModule],
   template: `
     <h2>Messages</h2>
     <div *ngIf="messageService.messages.length">
@@ -12,9 +13,6 @@ import {CommonModule} from "@angular/common";
     </div>
     <button type="button" class="clear" (click)="messageService.clear()">Clear messages</button>
   `,
-  imports: [
-    CommonModule
-  ],
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent {

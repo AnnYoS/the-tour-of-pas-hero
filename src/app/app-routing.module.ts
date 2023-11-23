@@ -2,11 +2,11 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  { path: 'heroes', loadChildren: () => import('./features/heroes/list-hero/list-hero.module').then(m => m.ListHeroModule) },
-  { path: 'dashboard', loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule) },
-  { path: 'detail/:id', loadChildren: () => import('./features/heroes/view-hero/view-hero.module').then(m => m.ViewHeroModule)},
-  { path: 'newHero', loadChildren: () => import('./features/heroes/add-hero/add-hero.module').then(m => m.AddHeroModule) },
-  { path: 'search', loadChildren: () => import('./features/heroes/search-hero/search-hero.module').then(m => m.SearchHeroModule) },
+  { path: 'heroes', loadComponent: () => import('./features/heroes/list-hero/list-hero.component').then(m => m.ListHeroComponent) },
+  { path: 'dashboard', loadComponent: () => import('./features/dashboard/dashboard.component').then(m => m.DashboardComponent) },
+  { path: 'detail/:id', loadComponent: () => import('./features/heroes/view-hero/view-hero.component').then(m => m.ViewHeroComponent)},
+  { path: 'newHero', loadComponent: () => import('./features/heroes/add-hero/add-hero.component').then(m => m.AddHeroComponent) },
+  { path: 'search', loadComponent: () => import('./features/heroes/search-hero/search-hero.component').then(m => m.SearchHeroComponent) },
   { path: '', redirectTo: './dashboard', pathMatch: 'full' }
 ];
 

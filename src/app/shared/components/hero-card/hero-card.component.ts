@@ -9,20 +9,22 @@ import {MyUppercasePipe} from "../../pipes/my-uppercase-pipe";
   standalone: true,
   imports: [CommonModule, FormsModule, MyUppercasePipe],
   template: `
-    <div *ngIf="hero">
-      <h2>{{ hero.name | myUpper }} Details</h2>
+    @if (hero) {
       <div>
-        <span>id: </span> {{ hero.id }}
+        <h2>{{ hero.name | myUpper }} Details</h2>
+        <div>
+          <span>id: </span> {{ hero.id }}
+        </div>
+        <div>
+          <label for="name">Hero name:</label>
+          <input id="name" [(ngModel)]="hero.name" placeholder="name">
+        </div>
+        <div>
+          <label for="description">Hero description:</label>
+          <input id="description" [(ngModel)]="hero.description" placeholder="description">
+        </div>
       </div>
-      <div>
-        <label for="name">Hero name:</label>
-        <input id="name" [(ngModel)]="hero.name" placeholder="name">
-      </div>
-      <div>
-        <label for="description">Hero description:</label>
-        <input id="description" [(ngModel)]="hero.description" placeholder="description">
-      </div>
-    </div>
+    }
   `,
   styleUrls: ['./hero-card.component.scss']
 })

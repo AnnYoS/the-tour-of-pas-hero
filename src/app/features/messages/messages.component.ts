@@ -1,16 +1,19 @@
 import {Component} from '@angular/core';
 import {MessageService} from '../../core/service/message.service';
 import {CommonModule} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-messages',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   template: `
     <h2>Messages</h2>
-    <div *ngIf="messageService.messages.length">
-      <div *ngFor='let message of messageService.messages'> {{message}} </div>
-    </div>
+    @if (messageService.messages.length) {
+      @for (message of messageService.messages; track message) {
+        <div>{{message}}</div>
+      }
+    }
     <button type="button" class="clear" (click)="messageService.clear()">Clear messages</button>
   `,
   styleUrls: ['./messages.component.scss']

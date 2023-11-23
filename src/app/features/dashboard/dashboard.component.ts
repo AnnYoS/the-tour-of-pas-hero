@@ -11,9 +11,9 @@ import {CommonModule, NgFor} from '@angular/common';
   template:`
     <h2>Top Heroes</h2>
     <div class="heroes-menu">
-      <a *ngFor="let hero of heroes" routerLink="/detail/{{ hero.id }}">
-        {{hero.name}}
-      </a>
+      @for (hero of heroes; track hero.id) {
+        <a routerLink="/detail/{{ hero.id }}">{{hero.name}}</a>
+      }
     </div>
   `,
   styleUrls: ['./dashboard.component.scss']

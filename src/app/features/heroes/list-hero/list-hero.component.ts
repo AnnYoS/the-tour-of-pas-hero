@@ -10,13 +10,15 @@ import { NgFor } from '@angular/common';
   imports: [NgFor, RouterLink] ,
   template:`
     <ul class="heroes">
-      <li *ngFor="let hero of heroes">
-        <a class="hero-cell" routerLink="/detail/{{ hero.id }}">
-          <span class="badge">{{ hero.id }}</span>
-          <span class="name">{{ hero.name }}</span>
-        </a>
-        <button type="button" class="delete" (click)="deleteHero(hero)">x</button>
-      </li>
+      @for (hero of heroes; track hero.id) {
+        <li>
+          <a class="hero-cell" routerLink="/detail/{{ hero.id }}">
+            <span class="badge">{{ hero.id }}</span>
+            <span class="name">{{ hero.name }}</span>
+          </a>
+          <button type="button" class="delete" (click)="deleteHero(hero)">x</button>
+        </li>
+      }
     </ul>
     <div>
       <button type="button" routerLink="/newHero">Create Hero</button>

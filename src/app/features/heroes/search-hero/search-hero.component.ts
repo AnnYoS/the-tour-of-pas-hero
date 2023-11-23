@@ -14,9 +14,11 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
       <label for="search-box">Hero Searcher</label>
       <input id="search-box" class="search-input" #searchBox  (input)="search(searchBox.value)" placeholder="Hero name"/>
     </div>
-    <div *ngIf="heroes$">
-      <button *ngFor="let hero of heroes$ | async" routerLink="/detail/{{hero.id}}">{{hero.name}}</button>
-    </div>
+    @if (heroes$) {
+      @for (hero of heroes$ | async; track hero.id) {
+        <button routerLink="/detail/{{hero.id}}">{{hero.name}}</button>
+      }
+    }
   `,
   styleUrls: ['./search-hero.component.scss'],
 })

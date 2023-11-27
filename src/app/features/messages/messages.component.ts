@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MessageService} from '../../core/service/message.service';
 import {CommonModule} from "@angular/common";
 import {RouterLink} from "@angular/router";
@@ -19,6 +19,5 @@ import {RouterLink} from "@angular/router";
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent {
-
-  constructor(public messageService: MessageService) { }
+  messageService: MessageService = inject(MessageService)
 }

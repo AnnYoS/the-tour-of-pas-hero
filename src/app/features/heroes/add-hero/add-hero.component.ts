@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HeroService} from '../../../core/service/hero.service';
 import {Hero} from '../../../core/model/hero';
@@ -26,15 +26,13 @@ import {Location} from '@angular/common';
 
 })
 export class AddHeroComponent {
+  heroService: HeroService = inject(HeroService)
+  location: Location = inject(Location)
 
   newHero = new FormGroup({
     name: new FormControl(''),
     description: new FormControl('')
   });
-
-  constructor(private heroService: HeroService,
-              private location: Location) {
-  }
 
   onSubmit(): void {
     this.heroService.addHero(this.newHero.value as Hero)

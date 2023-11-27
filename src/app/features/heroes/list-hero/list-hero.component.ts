@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, signal, Signal} from '@angular/core';
 import {Hero} from '../../../core/model/hero';
 import {HeroService} from '../../../core/service/hero.service';
 import { RouterLink } from '@angular/router';
-import { NgFor } from '@angular/common';
+import {toObservable, toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'list-heroes',
   standalone: true,
-  imports: [NgFor, RouterLink] ,
+  imports: [RouterLink] ,
   template:`
     <ul class="heroes">
-      @for (hero of heroes; track hero.id) {
+      @for (hero of heroes(); track hero.id) {
         <li>
           <a class="hero-cell" routerLink="/detail/{{ hero.id }}">
             <span class="badge">{{ hero.id }}</span>
@@ -26,18 +26,13 @@ import { NgFor } from '@angular/common';
   `,
   styleUrls: ['./list-hero.component.scss'],
 })
-export class ListHeroComponent implements OnInit {
-  heroes: Hero[] = [];
+export class ListHeroComponent {
+  heroService: HeroService = inject(HeroService)
 
-  ngOnInit(): void {
-    this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes);
-  }
-
-  constructor(private heroService: HeroService) { }
+  heroes: Signal<Hero[]> = toSignal(this.heroService.getHeroes(), {initialValue: []})
 
   deleteHero(hero: Hero): void {
-    this.heroes = this.heroes.filter(h => h !== hero);
-    this.heroService.deleteHero(hero).subscribe();
+    this.heroes = signal(this.heroes().filter(h => h !== hero));
+    this.heroService.deleteHero(hero);
   }
 }

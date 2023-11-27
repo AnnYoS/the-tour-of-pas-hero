@@ -1,41 +1,36 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, Signal} from '@angular/core';
 import {Location} from '@angular/common';
 import {ActivatedRoute} from "@angular/router";
 import {HeroService} from "../../../core/service/hero.service";
 import {Hero} from "../../../core/model/hero";
 import { HeroCardComponent } from '../../../shared/components/hero-card/hero-card.component';
+import {toSignal} from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'view-hero',
   standalone: true,
   imports: [HeroCardComponent],
   template:`
-    <div>
-      <hero-card [hero]="hero"></hero-card>
-      <button type="button" (click)="save()">Save</button>
-      <button type="button" (click)="goBack()">Go Back</button>
-    </div>
+    @if (hero()) {
+      <div>
+        <hero-card [hero]="hero()"></hero-card>
+        <button type="button" (click)="save()">Save</button>
+        <button type="button" (click)="goBack()">Go Back</button>
+      </div>
+    }
   `,
   styleUrls: ['./view-hero.component.scss'],
 })
-export class ViewHeroComponent implements OnInit {
+export class ViewHeroComponent {
+  heroService: HeroService = inject(HeroService)
+  location: Location = inject(Location)
+  route: ActivatedRoute = inject(ActivatedRoute)
 
-  hero: Hero
-
-  ngOnInit() {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.heroService.getHero(id)
-      .subscribe(hero => this.hero = hero);
-  }
-
-  constructor(private location: Location,
-              private route: ActivatedRoute,
-              private heroService: HeroService) {
-  }
+  hero: Signal<Hero> = toSignal(this.heroService.getHero(Number(this.route.snapshot.paramMap.get('id'))), {initialValue: {} as Hero})
 
   save(): void {
-    if (this.hero) {
-      this.heroService.updateHero(this.hero)
+    if (this.hero()) {
+      this.heroService.updateHero(this.hero())
         .subscribe(() => this.goBack());
     }
   }
